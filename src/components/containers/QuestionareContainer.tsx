@@ -5,21 +5,27 @@ import { DispalyBlock } from "../questionaire/DispalyBlock";
 import InputBlock from "../questionaire/InputBlock";
 import PageBlock from "../questionaire/PageBlock";
 
-const QuestionareContainer = ({ question }: IQuestionnaireItemProps) => {
+export interface QuestionaireItemContainerProps
+  extends IQuestionnaireItemProps {
+  onDeleteClicked: () => void;
+}
+
+const QuestionareContainer = (props: QuestionaireItemContainerProps) => {
+  const { question } = props;
   if (question.type == QuestionType.PAGE) {
-    return <PageBlock question={question} />;
+    return <PageBlock {...props} />;
   } else if (question.type == QuestionType.BOOLEAN) {
     return <div>switch</div>;
   } else if (question.type == QuestionType.DISPLAY) {
-    return <DispalyBlock question={question} />;
+    return <DispalyBlock {...props} />;
   } else if (
     question.type == QuestionType.INTEGER ||
     question.type == QuestionType.DECIMAL ||
     question.type == QuestionType.STRING
   ) {
-    return <InputBlock question={question} />;
+    return <InputBlock {...props} />;
   } else if (question.type == QuestionType.CHOICE) {
-    return <ChoiceBlock question={question} />;
+    return <ChoiceBlock {...props} />;
   } else {
     return <div style={{ color: "red" }}>nothing</div>;
   }

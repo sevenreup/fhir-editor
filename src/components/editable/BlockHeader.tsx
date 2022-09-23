@@ -1,13 +1,27 @@
-import { SettingsIcon } from "@chakra-ui/icons";
+import { DeleteIcon, SettingsIcon } from "@chakra-ui/icons";
 import { Flex, IconButton } from "@chakra-ui/react";
-import { IQuestionnaireItemProps } from "../../types";
+import { QuestionType } from "../../core/questionaire/enums";
+import { QuestionaireItemContainerProps } from "../containers/QuestionareContainer";
 
-
-const BlockHeader = ({ question: { id } }: IQuestionnaireItemProps) => {
+const BlockHeader = ({
+  question: { id, type },
+  onDeleteClicked,
+}: QuestionaireItemContainerProps) => {
   return (
     <Flex justify="space-between" w="full" my={3}>
-      <p>{id}</p>
-      <IconButton icon={<SettingsIcon />} aria-label={""} />
+      <div>
+        <p>{id}</p>
+        <p>{type}</p>
+      </div>
+
+      <div>
+        <IconButton icon={<SettingsIcon />} aria-label={""} />
+        <IconButton
+          icon={<DeleteIcon />}
+          aria-label={""}
+          onClick={() => onDeleteClicked()}
+        />
+      </div>
     </Flex>
   );
 };

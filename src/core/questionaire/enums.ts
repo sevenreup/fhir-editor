@@ -1,24 +1,24 @@
 export enum QuestionType {
-    GROUP,
-    DISPLAY,
-    BOOLEAN,
-    INTEGER,
-    DECIMAL,
-    DATE,
-    DATETIME,
-    STRING,
-    CHOICE,
-    PAGE,
-    DROPDOWN
+  GROUP = "group",
+  DISPLAY = "display",
+  BOOLEAN = "boolean",
+  INTEGER = "integer",
+  DECIMAL = "decimal",
+  DATE = "date",
+  DATETIME = "datetime",
+  STRING = "string",
+  CHOICE = "choice",
+  PAGE = "page",
+  DROPDOWN = "dropdown",
 }
 
 export enum EnableBehavior {
-    ALL,
-    ANY
+  ALL,
+  ANY,
 }
 
 export enum QuestionExtension {
   HIDDEN,
   PAGE,
-  DROPDOWN
+  DROPDOWN,
 }

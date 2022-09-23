@@ -19,13 +19,13 @@ export interface QuestionItem {
   rules: QuestionRules;
   answerOption?: Questionvalue[];
   initial?: Questionvalue[];
-  items?: QuestionItem[];
+  children?: QuestionItem[];
   isTranslated: boolean;
 }
 
 export interface QuestPage extends QuestionItem {
   title: string;
-  items: QuestionItem[];
+  children: QuestionItem[];
 }
 
 export interface Questionaire {

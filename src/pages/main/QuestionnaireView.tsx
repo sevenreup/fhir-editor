@@ -1,6 +1,8 @@
-import { Box, Button, VStack } from "@chakra-ui/react";
+import { Box, Button, useDisclosure, VStack } from "@chakra-ui/react";
 import QuestionareContainer from "../../components/containers/QuestionareContainer";
-import { Questionaire } from "../../core/questionaire";
+import { Questionaire, QuestionItem } from "../../core/questionaire";
+import { Control, useFieldArray, useForm } from "react-hook-form";
+import QuestionareItemDialog from "./components/QuestionareItemDialog";
 
 interface IQuestionnaireViewProps {
   questionaire: Questionaire;
@@ -9,15 +11,60 @@ interface IQuestionnaireViewProps {
 export const QuestionnaireView = ({
   questionaire,
 }: IQuestionnaireViewProps) => {
+  const {
+    handleSubmit,
+    register,
+    control,
+    formState: { errors, isSubmitting },
+  } = useForm({ defaultValues: questionaire });
+
+  function onSubmit(values: any) {
+    console.log(values);
+  }
+
   return (
-    <Box p={8}>
-      <h1>{questionaire.title}</h1>
+    <form id="quest-create-form" onSubmit={handleSubmit(onSubmit)}>
+      <Box p={8}>
+        <h1>{questionaire.title}</h1>
+        <QuestionaireArraysView control={control} />
+      </Box>
+    </form>
+  );
+};
+
+export const QuestionaireArraysView = ({
+  control,
+}: {
+  control: Control<Questionaire, any>;
+}) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "items",
+  } as never);
+
+  return (
+    <>
       <VStack>
-        {questionaire.items.map((quest) => (
-          <QuestionareContainer question={quest} />
+        {fields.map((quest, index) => (
+          <QuestionareContainer
+            question={quest as QuestionItem}
+            onDeleteClicked={() => {
+              remove(index);
+            }}
+          />
         ))}
-        <Button>Add Question</Button>
+        <Button onClick={onOpen}>Add Question</Button>
+        <Button type="submit">Save</Button>
       </VStack>
-    </Box>
+      <QuestionareItemDialog
+        isOpen={isOpen}
+        onClose={onClose}
+        onSave={(quest) => {
+          onClose()
+          append(quest);
+        }}
+      />
+    </>
   );
 };

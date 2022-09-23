@@ -75,7 +75,7 @@ function ToItem(item: FhirQuestionItem): QuestionItem {
     });
   }
 
-  quest.items = item.item?.map((inner) => ToItem(inner));
+  quest.children = item.item?.map((inner) => ToItem(inner));
   return quest;
 }
 

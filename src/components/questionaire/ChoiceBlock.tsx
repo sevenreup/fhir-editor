@@ -1,15 +1,16 @@
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { Box, VStack, Text, Button, Flex, IconButton } from "@chakra-ui/react";
 import { Questionvalue, ValueCoding } from "../../core/questionaire";
-import { IQuestionnaireItemProps } from "../../types";
+import { QuestionaireItemContainerProps } from "../containers/QuestionareContainer";
 import BlockHeader from "../editable/BlockHeader";
 import EditableTextBlock from "../editable/EditableTextBlock";
 import Card from "../general/Card";
 
-const ChoiceBlock = ({ question }: IQuestionnaireItemProps) => {
+const ChoiceBlock = (props: QuestionaireItemContainerProps) => {
+  const { question } = props;
   return (
     <Card>
-      <BlockHeader question={question} />
+      <BlockHeader {...props} />
       <EditableTextBlock defaultValue={question.title} />
       {!question.answerOption && <div>No answers provided</div>}
 
@@ -51,8 +52,8 @@ const QuestionAnswerOptionCoding = ({ code }: { code: ValueCoding }) => {
   return (
     <div>
       <p>{code.system}</p>
-      <p>code.display</p>
-      <p>code.code</p>
+      <p>{code.display}</p>
+      <p>{code.code}</p>
     </div>
   );
 };
