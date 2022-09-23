@@ -1,0 +1,475 @@
+{
+    "resourceType": "Questionnaire",
+    "id": "art-client-vitals-female-6-months-to-15-years",
+    "meta": {
+        "versionId": "11",
+        "lastUpdated": "2022-07-11T16:34:00.537+03:00",
+        "source": "#JxrurYa92qDoWF8v"
+    },
+    "language": "en",
+    "extension": [
+        {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-targetStructureMap",
+            "valueCanonical": "https://fhir-dev.d-tree.org/StructureMap/art-client-vitals-female-6-months-to-15-years"
+        }
+    ],
+    "title": "Vitals",
+    "status": "active",
+    "subjectType": [
+        "Patient"
+    ],
+    "publisher": "mcore",
+    "contact": [
+        {
+            "name": "http://www.d-tree.org"
+        }
+    ],
+    "useContext": [
+        {
+            "code": {
+                "system": "http://hl7.org/fhir/codesystem-usage-context-type.html",
+                "code": "focus"
+            },
+            "valueCodeableConcept": {
+                "coding": [
+                    {
+                        "system": "http://fhir.ona.io",
+                        "code": "000002",
+                        "display": "Malawi Core Patient"
+                    }
+                ]
+            }
+        }
+    ],
+    "item": [
+        {
+            "extension": [
+                {
+                    "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                    "valueCodeableConcept": {
+                        "coding": [
+                            {
+                                "system": "http://hl7.org/fhir/questionnaire-item-control",
+                                "code": "page",
+                                "display": "Page 1"
+                            }
+                        ],
+                        "text": "Page 1"
+                    }
+                }
+            ],
+            "linkId": "page-1",
+            "type": "group",
+            "item": [
+                {
+                    "linkId": "text-display",
+                    "text": "<h4>You are now starting vitals collection and malnutrition assessment</h4>",
+                    "type": "display",
+                    "required": true
+                },
+                {
+                    "extension": [
+                        {
+                            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                            "valueExpression": {
+                                "language": "text/fhirpath",
+                                "expression": "Condition.code.coding"
+                            }
+                        },
+                        {
+                            "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                            "valueCodeableConcept": {
+                                "coding": [
+                                    {
+                                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                                        "code": "drop-down",
+                                        "display": "Drop down"
+                                    }
+                                ],
+                                "text": "Drop down"
+                            }
+                        }
+                    ],
+                    "linkId": "pregnancy-status",
+                    "text": "* <b>OBSERVE OR ASK:</b> What is the client's pregnancy status?",
+                    "type": "choice",
+                    "required": true,
+                    "answerOption": [
+                        {
+                            "valueCoding": {
+                                "system": "http://snomed.info/sct",
+                                "code": "60001007",
+                                "display": "Not Pregnant"
+                            }
+                        },
+                        {
+                            "valueCoding": {
+                                "system": "http://snomed.info/sct",
+                                "code": "413712001",
+                                "display": "Breastfeeding"
+                            }
+                        },
+                        {
+                            "valueCoding": {
+                                "system": "http://snomed.info/sct",
+                                "code": "77386006",
+                                "display": "Pregnant"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "linkId": "equipment-available",
+                    "text": "<strong>Ask:</strong> what equipment is available",
+                    "type": "choice",
+                    "required": true,
+                    "repeats": true,
+                    "answerOption": [
+                        {
+                            "valueCoding": {
+                                "code": "weighing-scale",
+                                "display": "Weighing scale"
+                            }
+                        },
+                        {
+                            "valueCoding": {
+                                "code": "height-chart",
+                                "display": "height chart"
+                            }
+                        },
+                        {
+                            "valueCoding": {
+                                "code": "muac-tape",
+                                "display": "MUAC tape"
+                            }
+                        },
+                        {
+                            "extension": [
+                                {
+                                    "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionExclusive",
+                                    "valueBoolean": true
+                                }
+                            ],
+                            "valueCoding": {
+                                "code": "none-of-the-above",
+                                "display": "None of the above"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "extension": [
+                        {
+                            "url": "http://hl7.org/fhir/StructureDefinition/minValue",
+                            "valueInteger": 0
+                        }
+                    ],
+                    "linkId": "weight",
+                    "text": "Enter weight (kg)",
+                    "type": "integer",
+                    "enableWhen": [
+                        {
+                            "question": "equipment-available",
+                            "operator": "=",
+                            "answerCoding": {
+                                "code": "weighing-scale"
+                            }
+                        }
+                    ],
+                    "enableBehavior": "all",
+                    "required": true
+                },
+                {
+                    "extension": [
+                        {
+                            "url": "http://hl7.org/fhir/StructureDefinition/minValue",
+                            "valueInteger": 0
+                        }
+                    ],
+                    "linkId": "height",
+                    "text": "Height (cm)",
+                    "type": "integer",
+                    "enableWhen": [
+                        {
+                            "question": "equipment-available",
+                            "operator": "=",
+                            "answerCoding": {
+                                "code": "height-chart"
+                            }
+                        }
+                    ],
+                    "enableBehavior": "all",
+                    "required": true
+                },
+                {
+                    "linkId": "muac-tape-group",
+                    "type": "group",
+                    "enableBehavior": "all",
+                    "enableWhen": [
+                        {
+                            "question": "equipment-available",
+                            "operator": "=",
+                            "answerCoding": {
+                                "code": "muac-tape"
+                            }
+                        }
+                    ],
+                    "item": [
+                        {
+                            "linkId": "malnutrition-display",
+                            "text": "Malnutrition assessment",
+                            "type": "display"
+                        },
+                        {
+                            "extension": [
+                                {
+                                    "url": "http://hl7.org/fhir/StructureDefinition/minValue",
+                                    "valueDecimal": 1.0
+                                },
+                                {
+                                    "url": "http://hl7.org/fhir/StructureDefinition/maxValue",
+                                    "valueDecimal": 25.0
+                                }
+                            ],
+                            "linkId": "muac-assessment",
+                            "text": "Enter MUAC Assessment Results (cm)",
+                            "type": "decimal",
+                            "required": true
+                        },
+                        {
+                            "linkId": "6-to-5-muac",
+                            "type": "group",
+                            "enableBehavior": "all",
+                            "item": [
+                                {
+                                    "linkId": "severe-malnutrition",
+                                    "text": "<p><strong><font color= 'red'> Severe Malnutrition </font> <br> <font color='red'> Refer Client to Malnutrition Department for Admission</font> <br> <font color='black'> Write information on MasterCard and Health Passport </font></strong> </p>",
+                                    "type": "display",
+                                    "enableWhen": [
+                                        {
+                                            "question": "weighing-options",
+                                            "operator": "=",
+                                            "answerCoding": {
+                                                "code": "muac-tape"
+                                            }
+                                        },
+                                        {
+                                            "question": "muac-assessment",
+                                            "operator": ">=",
+                                            "answerDecimal": 1
+                                        },
+                                        {
+                                            "question": "muac-assessment",
+                                            "operator": "<",
+                                            "answerDecimal": 11.4
+                                        }
+                                    ],
+                                    "enableBehavior": "all"
+                                },
+                                {
+                                    "linkId": "moderate-malnutrition",
+                                    "text": " <p> <strong>Interpretation:  <font color='#FFA500'> Moderate Malnutrition </font> <br> Action: <br> <font color='red'> Refer Client to Malnutrition Department for Admission</font> <br> <font color='black'> Write information on MasterCard and Health Passport </font></strong> </p>",
+                                    "type": "display",
+                                    "enableWhen": [
+                                        {
+                                            "question": "weighing-options",
+                                            "operator": "=",
+                                            "answerCoding": {
+                                                "code": "muac-tape"
+                                            }
+                                        },
+                                        {
+                                            "question": "muac-assessment",
+                                            "operator": ">=",
+                                            "answerDecimal": 11.5
+                                        },
+                                        {
+                                            "question": "muac-assessment",
+                                            "operator": "<",
+                                            "answerDecimal": 12.4
+                                        }
+                                    ],
+                                    "enableBehavior": "all"
+                                },
+                                {
+                                    "linkId": "no-malnutrition",
+                                    "text": " <p> <strong>Interpretation: <br>  <font color='green'> No Malnutrition </font> <br> <font color='black'> Write Information on MasterCard and Health Passport </font> </strong></p>",
+                                    "type": "display",
+                                    "enableWhen": [
+                                        {
+                                            "question": "weighing-options",
+                                            "operator": "=",
+                                            "answerCoding": {
+                                                "code": "muac-tape"
+                                            }
+                                        },
+                                        {
+                                            "question": "muac-assessment",
+                                            "operator": ">=",
+                                            "answerDecimal": 12.5
+                                        }
+                                    ],
+                                    "enableBehavior": "all"
+                                }
+                            ]
+                        },
+                        {
+                            "linkId": "5-to-9-muac",
+                            "type": "group",
+                            "enableBehavior": "all",
+                            "item": [
+                                {
+                                    "linkId": "severe-malnutrition",
+                                    "text": "<p><strong><font color= 'red'> Severe Malnutrition </font> <br> <font color='red'> Refer Client to Malnutrition Department for Admission</font> <br> <font color='black'> Write information on MasterCard and Health Passport </font></strong> </p>",
+                                    "type": "display",
+                                    "enableWhen": [
+                                        {
+                                            "question": "weighing-options",
+                                            "operator": "=",
+                                            "answerCoding": {
+                                                "code": "muac-tape"
+                                            }
+                                        },
+                                        {
+                                            "question": "muac-assessment",
+                                            "operator": ">=",
+                                            "answerDecimal": 1
+                                        },
+                                        {
+                                            "question": "muac-assessment",
+                                            "operator": "<",
+                                            "answerDecimal": 11.4
+                                        }
+                                    ],
+                                    "enableBehavior": "all"
+                                },
+                                {
+                                    "linkId": "moderate-malnutrition",
+                                    "text": " <p> <strong>Interpretation:  <font color='#FFA500'> Moderate Malnutrition </font> <br> Action: <br> <font color='red'> Refer Client to Malnutrition Department for Admission</font> <br> <font color='black'> Write information on MasterCard and Health Passport </font></strong> </p>",
+                                    "type": "display",
+                                    "enableWhen": [
+                                        {
+                                            "question": "weighing-options",
+                                            "operator": "=",
+                                            "answerCoding": {
+                                                "code": "muac-tape"
+                                            }
+                                        },
+                                        {
+                                            "question": "muac-assessment",
+                                            "operator": ">=",
+                                            "answerDecimal": 11.5
+                                        },
+                                        {
+                                            "question": "muac-assessment",
+                                            "operator": "<",
+                                            "answerDecimal": 12.4
+                                        }
+                                    ],
+                                    "enableBehavior": "all"
+                                },
+                                {
+                                    "linkId": "no-malnutrition",
+                                    "text": " <p> <strong>Interpretation: <br>  <font color='green'> No Malnutrition </font> <br> <font color='black'> Write Information on MasterCard and Health Passport </font> </strong></p>",
+                                    "type": "display",
+                                    "enableWhen": [
+                                        {
+                                            "question": "weighing-options",
+                                            "operator": "=",
+                                            "answerCoding": {
+                                                "code": "muac-tape"
+                                            }
+                                        },
+                                        {
+                                            "question": "muac-assessment",
+                                            "operator": ">=",
+                                            "answerDecimal": 12.5
+                                        }
+                                    ],
+                                    "enableBehavior": "all"
+                                }
+                            ]
+                        },
+                        {
+                            "linkId": "10-to-15-muac",
+                            "type": "group",
+                            "enableBehavior": "all",
+                            "item": [
+                                {
+                                    "linkId": "severe-malnutrition",
+                                    "text": "<p><strong><font color= 'red'> Severe Malnutrition </font> <br> <font color='red'> Refer Client to Malnutrition Department for Admission</font> <br> <font color='black'> Write information on MasterCard and Health Passport </font></strong> </p>",
+                                    "type": "display",
+                                    "enableWhen": [
+                                        {
+                                            "question": "weighing-options",
+                                            "operator": "=",
+                                            "answerCoding": {
+                                                "code": "muac-tape"
+                                            }
+                                        },
+                                        {
+                                            "question": "muac-assessment",
+                                            "operator": ">=",
+                                            "answerDecimal": 1
+                                        },
+                                        {
+                                            "question": "muac-assessment",
+                                            "operator": "<",
+                                            "answerDecimal": 11.4
+                                        }
+                                    ],
+                                    "enableBehavior": "all"
+                                },
+                                {
+                                    "linkId": "moderate-malnutrition",
+                                    "text": " <p> <strong>Interpretation:  <font color='#FFA500'> Moderate Malnutrition </font> <br> Action: <br> <font color='red'> Refer Client to Malnutrition Department for Admission</font> <br> <font color='black'> Write information on MasterCard and Health Passport </font></strong> </p>",
+                                    "type": "display",
+                                    "enableWhen": [
+                                        {
+                                            "question": "weighing-options",
+                                            "operator": "=",
+                                            "answerCoding": {
+                                                "code": "muac-tape"
+                                            }
+                                        },
+                                        {
+                                            "question": "muac-assessment",
+                                            "operator": ">=",
+                                            "answerDecimal": 11.5
+                                        },
+                                        {
+                                            "question": "muac-assessment",
+                                            "operator": "<",
+                                            "answerDecimal": 12.4
+                                        }
+                                    ],
+                                    "enableBehavior": "all"
+                                },
+                                {
+                                    "linkId": "no-malnutrition",
+                                    "text": " <p> <strong>Interpretation: <br>  <font color='green'> No Malnutrition </font> <br> <font color='black'> Write Information on MasterCard and Health Passport </font> </strong></p>",
+                                    "type": "display",
+                                    "enableWhen": [
+                                        {
+                                            "question": "weighing-options",
+                                            "operator": "=",
+                                            "answerCoding": {
+                                                "code": "muac-tape"
+                                            }
+                                        },
+                                        {
+                                            "question": "muac-assessment",
+                                            "operator": ">=",
+                                            "answerDecimal": 12.5
+                                        }
+                                    ],
+                                    "enableBehavior": "all"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
