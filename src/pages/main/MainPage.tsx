@@ -1,3 +1,4 @@
+import { Box, Container } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { ParseFromString } from "../../core/parse";
 import { Questionaire } from "../../core/questionaire";
@@ -21,7 +22,7 @@ export default function MainPage() {
   };
 
   return (
-    <div>
+    <Box p={8}>
       <p>open file</p>
       <input
         type="file"
@@ -41,6 +42,6 @@ export default function MainPage() {
         }}
       />
       {questionaire && <QuestionnaireView questionaire={questionaire} />}
-    </div>
+    </Box>
   );
 }

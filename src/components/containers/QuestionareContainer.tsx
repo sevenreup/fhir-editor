@@ -1,5 +1,6 @@
 import { QuestionType } from "../../core/questionaire/enums";
 import { IQuestionnaireItemProps } from "../../types";
+import ChoiceBlock from "../questionaire/ChoiceBlock";
 import { DispalyBlock } from "../questionaire/DispalyBlock";
 import InputBlock from "../questionaire/InputBlock";
 import PageBlock from "../questionaire/PageBlock";
@@ -17,6 +18,8 @@ const QuestionareContainer = ({ question }: IQuestionnaireItemProps) => {
     question.type == QuestionType.STRING
   ) {
     return <InputBlock question={question} />;
+  } else if (question.type == QuestionType.CHOICE) {
+    return <ChoiceBlock question={question} />;
   } else {
     return <div style={{ color: "red" }}>nothing</div>;
   }

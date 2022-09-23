@@ -1,8 +1,13 @@
 import { EnableBehavior, QuestionType } from "./enums";
 import { EnableRules, QuestionRules } from "./rules";
 
-interface Questionvalue {
-  value: boolean | string | number | Date | object | any;
+const answerTypes = ["boolean", "string", "number", "Date", "coding"] as const;
+
+export type QuestionAnswerType = typeof answerTypes[number];
+
+export interface Questionvalue {
+  value: any;
+  type: QuestionAnswerType;
 }
 
 export interface QuestionItem {
@@ -24,7 +29,13 @@ export interface QuestPage extends QuestionItem {
 }
 
 export interface Questionaire {
-    title: string,
-    hasPages: boolean,
-    items: QuestionItem[]
+  title: string;
+  hasPages: boolean;
+  items: QuestionItem[];
+}
+
+export interface ValueCoding {
+  system: string;
+  code: string;
+  display: string;
 }

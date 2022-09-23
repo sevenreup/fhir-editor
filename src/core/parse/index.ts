@@ -1,8 +1,14 @@
 import { FhirQuestionItem, FhirQuestionnaireResource } from "../fhir/f4";
 import { IsFhirPage } from "../fhir/helpers";
-import { Questionaire, QuestionItem, QuestPage } from "../questionaire";
+import {
+  Questionaire,
+  QuestionAnswerType,
+  QuestionItem,
+  QuestPage,
+} from "../questionaire";
 import { QuestionType } from "../questionaire/enums";
 import { QuestionRules } from "../questionaire/rules";
+import { IsKeyInObjectNotNull } from "../utils/objects";
 
 export async function ParseFromString(data: string): Promise<Questionaire> {
   const json = JSON.parse(data) as FhirQuestionnaireResource;
@@ -42,6 +48,33 @@ function ToItem(item: FhirQuestionItem): QuestionItem {
       }
     }
   }
+
+  const answerOptions = item.answerOption;
+  if (answerOptions !== null && answerOptions !== undefined) {
+    quest.answerOption = answerOptions?.map((value) => {
+      let typeOfVar: QuestionAnswerType;
+      let valueData: any;
+      if (IsKeyInObjectNotNull(value, "valueInteger")) {
+        typeOfVar = "number";
+        valueData = value["valueInteger"];
+      } else if (IsKeyInObjectNotNull(value, "valueString")) {
+        typeOfVar = "string";
+        valueData = value["valueString"];
+      } else if (IsKeyInObjectNotNull(value, "valueCoding")) {
+        typeOfVar = "coding";
+        valueData = value["valueCoding"];
+      } else {
+        typeOfVar = "number";
+        valueData = value["valueInteger"];
+      }
+
+      return {
+        value: valueData,
+        type: typeOfVar,
+      };
+    });
+  }
+
   quest.items = item.item?.map((inner) => ToItem(inner));
   return quest;
 }
