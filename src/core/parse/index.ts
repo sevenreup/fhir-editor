@@ -38,7 +38,6 @@ function ToItem(item: FhirQuestionItem): QuestionItem {
         if (IsFhirPage(ext)) {
           quest.type = QuestionType.PAGE;
         } else {
-          
         }
       }
     }
@@ -51,6 +50,12 @@ function FhirQuestTypeToQuestType(type: string): QuestionType {
   switch (type) {
     case "choice":
       return QuestionType.CHOICE;
+    case "integer":
+      return QuestionType.INTEGER;
+    case "string":
+      return QuestionType.STRING;
+    case "decimal":
+      return QuestionType.DECIMAL;
     default:
       return QuestionType.DISPLAY;
   }

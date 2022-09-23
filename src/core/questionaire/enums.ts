@@ -2,6 +2,7 @@ export enum QuestionType {
     GROUP,
     DISPLAY,
     BOOLEAN,
+    INTEGER,
     DECIMAL,
     DATE,
     DATETIME,
