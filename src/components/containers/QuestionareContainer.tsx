@@ -1,3 +1,5 @@
+import { UseFormRegister } from "react-hook-form";
+import { Questionaire } from "../../core/questionaire";
 import { QuestionType } from "../../core/questionaire/enums";
 import { IQuestionnaireItemProps } from "../../types";
 import ChoiceBlock from "../questionaire/ChoiceBlock";
@@ -8,6 +10,8 @@ import PageBlock from "../questionaire/PageBlock";
 export interface QuestionaireItemContainerProps
   extends IQuestionnaireItemProps {
   onDeleteClicked: () => void;
+  register: UseFormRegister<Questionaire>;
+  index: number;
 }
 
 const QuestionareContainer = (props: QuestionaireItemContainerProps) => {

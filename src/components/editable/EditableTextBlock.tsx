@@ -4,22 +4,22 @@ import {
   Input,
   EditableInput,
 } from "@chakra-ui/react";
-import { styled } from "@chakra-ui/react"
 import EditableControls from "./EditableControls";
 
-type Props = { defaultValue?: string | null };
+type Props = { defaultValue?: string | null; id?: string | undefined };
 
-const EditableTextBlock = ({ defaultValue }: Props) => {
+const EditableTextBlock = ({ defaultValue, id, ...others }: Props) => {
+  
   return (
     <Editable
       textAlign="start"
       defaultValue={defaultValue ?? ""}
-      fontSize="md"
+      // fontSize="md"
       isPreviewFocusable={false}
       placeholder="Enter Text"
     >
       <EditablePreview />
-      <Input as={EditableInput} />
+      <Input as={EditableInput} id={id} {...others}/>
       <EditableControls />
     </Editable>
   );

@@ -20,8 +20,8 @@ const ChoiceBlock = (props: QuestionaireItemContainerProps) => {
             Answer Options
           </Text>
           <VStack>
-            {question.answerOption?.map((option) => (
-              <QuestionAnswerOption value={option} />
+            {question.answerOption?.map((option, index) => (
+              <QuestionAnswerOption value={option} key={index}/>
             ))}
             <Button>Add Options</Button>
           </VStack>

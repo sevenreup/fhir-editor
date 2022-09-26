@@ -1,7 +1,12 @@
 import { Box, Button, useDisclosure, VStack } from "@chakra-ui/react";
 import QuestionareContainer from "../../components/containers/QuestionareContainer";
 import { Questionaire, QuestionItem } from "../../core/questionaire";
-import { Control, useFieldArray, useForm } from "react-hook-form";
+import {
+  Control,
+  useFieldArray,
+  useForm,
+  UseFormRegister,
+} from "react-hook-form";
 import QuestionareItemDialog from "./components/QuestionareItemDialog";
 
 interface IQuestionnaireViewProps {
@@ -26,7 +31,7 @@ export const QuestionnaireView = ({
     <form id="quest-create-form" onSubmit={handleSubmit(onSubmit)}>
       <Box p={8}>
         <h1>{questionaire.title}</h1>
-        <QuestionaireArraysView control={control} />
+        <QuestionaireArraysView control={control} register={register} />
       </Box>
     </form>
   );
@@ -34,8 +39,10 @@ export const QuestionnaireView = ({
 
 export const QuestionaireArraysView = ({
   control,
+  register,
 }: {
   control: Control<Questionaire, any>;
+  register: UseFormRegister<Questionaire>;
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { fields, append, remove } = useFieldArray({
@@ -48,10 +55,13 @@ export const QuestionaireArraysView = ({
       <VStack>
         {fields.map((quest, index) => (
           <QuestionareContainer
+            key={quest.id}
+            index={index}
             question={quest as QuestionItem}
             onDeleteClicked={() => {
               remove(index);
             }}
+            register={register}
           />
         ))}
         <Button onClick={onOpen}>Add Question</Button>
@@ -61,7 +71,9 @@ export const QuestionaireArraysView = ({
         isOpen={isOpen}
         onClose={onClose}
         onSave={(quest) => {
-          onClose()
+          onClose();
+          console.log(quest);
+
           append(quest);
         }}
       />

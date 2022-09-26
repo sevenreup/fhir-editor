@@ -95,7 +95,7 @@ const QuestionareItemDialog = ({ isOpen, onClose, onSave }: Props) => {
                 {...register("type")}
               >
                 {Object.keys(QuestionType).map((value) => (
-                  <option value={(QuestionType as any)[value]}>{value}</option>
+                  <option key={value} value={(QuestionType as any)[value]}>{value}</option>
                 ))}
               </Select>
               <FormErrorMessage>

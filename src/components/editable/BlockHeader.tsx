@@ -1,6 +1,5 @@
 import { DeleteIcon, SettingsIcon } from "@chakra-ui/icons";
 import { Flex, IconButton } from "@chakra-ui/react";
-import { QuestionType } from "../../core/questionaire/enums";
 import { QuestionaireItemContainerProps } from "../containers/QuestionareContainer";
 
 const BlockHeader = ({
