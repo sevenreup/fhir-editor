@@ -1,5 +1,6 @@
-import { VStack } from "@chakra-ui/react";
+import { Button, useDisclosure, VStack } from "@chakra-ui/react";
 import { useFieldArray } from "react-hook-form";
+import QuestionareItemDialog from "../../pages/main/components/QuestionareItemDialog";
 import QuestionareContainer, {
   QuestionaireItemContainerProps,
 } from "../containers/QuestionareContainer";
@@ -8,17 +9,54 @@ import Card from "../general/Card";
 
 const PageBlock = (props: QuestionaireItemContainerProps) => {
   const { question, ...others } = props;
-  
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const { fields, remove, append } = useFieldArray({
+    control: others.control,
+    name: `items.${others.index}.children`,
+  } as never);
+
   return (
-    <Card>
-      <BlockHeader {...props} />
-      <h3>{question.title}</h3>
-      <VStack>
-        {question.children?.map((quest) => (
-          <QuestionareContainer question={quest} {...others} />
-        ))}
-      </VStack>
-    </Card>
+    <>
+      <Card>
+        <BlockHeader {...props} />
+        <h3>{question.title}</h3>
+        <VStack>
+          {fields?.map((quest, index) => (
+            <QuestionareContainer
+              key={quest.id}
+              index={index}
+              path={`${others.path}.children.${index}`}
+              question={quest as any}
+              onDeleteClicked={() => {
+                remove(index);
+              }}
+              register={others.register}
+              control={others.control}
+            />
+          ))}
+        </VStack>
+        <div>
+          <Button
+            onClick={() => {
+              onOpen();
+            }}
+          >
+            Add Question
+          </Button>
+        </div>
+      </Card>
+      <QuestionareItemDialog
+        isOpen={isOpen}
+        onClose={onClose}
+        onSave={(quest) => {
+          onClose();
+          console.log(quest);
+
+          append(quest);
+        }}
+      />
+    </>
   );
 };
 

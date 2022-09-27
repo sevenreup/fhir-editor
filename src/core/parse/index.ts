@@ -31,6 +31,7 @@ function ToItem(item: FhirQuestionItem): QuestionItem {
   const rules: QuestionRules = {};
   const quest: QuestionItem = {
     id: item.linkId,
+    linkId: item.linkId,
     title: item.text,
     type: FhirQuestTypeToQuestType(item.type),
     rules: rules,

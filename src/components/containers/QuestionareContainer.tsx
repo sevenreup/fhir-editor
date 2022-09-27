@@ -13,6 +13,7 @@ export interface QuestionaireItemContainerProps
   register: UseFormRegister<Questionaire>;
   index: number;
   control: Control<Questionaire, any>;
+  path?: string 
 }
 
 const QuestionareContainer = (props: QuestionaireItemContainerProps) => {

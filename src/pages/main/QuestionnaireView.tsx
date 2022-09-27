@@ -57,6 +57,7 @@ export const QuestionaireArraysView = ({
           <QuestionareContainer
             key={quest.id}
             index={index}
+            path={`items.${index}`}
             question={quest as QuestionItem}
             onDeleteClicked={() => {
               remove(index);

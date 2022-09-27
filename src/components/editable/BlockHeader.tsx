@@ -1,26 +1,30 @@
 import { DeleteIcon, SettingsIcon } from "@chakra-ui/icons";
-import { Flex, IconButton } from "@chakra-ui/react";
+import { Badge, Box, Flex, IconButton } from "@chakra-ui/react";
 import { QuestionaireItemContainerProps } from "../containers/QuestionareContainer";
 
 const BlockHeader = ({
-  question: { id, type },
+  question: { linkId, type },
   onDeleteClicked,
 }: QuestionaireItemContainerProps) => {
   return (
     <Flex justify="space-between" w="full" my={3}>
-      <div>
-        <p>{id}</p>
-        <p>{type}</p>
-      </div>
+      <Flex>
+        <p>{linkId}</p>
+        <Box ml="1.5">
+          <Badge ml="1" colorScheme="green">
+            {type}
+          </Badge>
+        </Box>
+      </Flex>
 
-      <div>
+      <Flex gap={2}>
         <IconButton icon={<SettingsIcon />} aria-label={""} />
         <IconButton
           icon={<DeleteIcon />}
           aria-label={""}
           onClick={() => onDeleteClicked()}
         />
-      </div>
+      </Flex>
     </Flex>
   );
 };

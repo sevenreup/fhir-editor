@@ -12,6 +12,7 @@ export interface Questionvalue {
 
 export interface QuestionItem {
   id: string;
+  linkId: string;
   title: string;
   type: QuestionType;
   enableWhen?: EnableRules[];

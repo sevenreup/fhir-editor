@@ -1,11 +1,11 @@
-import {
-  Input,
-} from "@chakra-ui/react";
+import { forwardRef, Input, InputProps } from "@chakra-ui/react";
 
-type Props = { defaultValue?: string | null; id?: string | undefined };
+interface Props extends InputProps {
+  id?: string | undefined;
+}
 
-const EditableTextBlock = ({ defaultValue, id, ...others }: Props) => {
-  return <Input id={id} placeholder="Enter Text" {...others} />;
-};
+const EditableTextBlock =  forwardRef(({ defaultValue, id, ...others }: Props, ref) => {
+  return <Input id={id} placeholder="Enter Text" {...others} ref={ref} />;
+})
 
 export default EditableTextBlock;

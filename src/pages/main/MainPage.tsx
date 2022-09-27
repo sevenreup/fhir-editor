@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { ParseFromString } from "../../core/parse";
 import { Questionaire } from "../../core/questionaire";
 import { QuestionnaireView } from "./QuestionnaireView";
+import SampleForm from "./SampleForm";
 
 export default function MainPage() {
   const [rawJson, setRawJson] = useState<string | null>(null);
@@ -41,6 +42,7 @@ export default function MainPage() {
           }
         }}
       />
+      {/* <SampleForm /> */}
       {questionaire && <QuestionnaireView questionaire={questionaire} />}
     </Box>
   );

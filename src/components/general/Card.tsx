@@ -1,7 +1,9 @@
 import { Box } from "@chakra-ui/react";
 import React, { FC, PropsWithChildren } from "react";
 
-type Props = {};
+type Props = {
+  background?: string
+};
 
 const Card: FC<PropsWithChildren<Props>> = ({ children }) => {
   return (
