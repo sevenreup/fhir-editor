@@ -1,4 +1,4 @@
-import { UseFormRegister } from "react-hook-form";
+import { Control, UseFormRegister } from "react-hook-form";
 import { Questionaire } from "../../core/questionaire";
 import { QuestionType } from "../../core/questionaire/enums";
 import { IQuestionnaireItemProps } from "../../types";
@@ -12,6 +12,7 @@ export interface QuestionaireItemContainerProps
   onDeleteClicked: () => void;
   register: UseFormRegister<Questionaire>;
   index: number;
+  control: Control<Questionaire, any>;
 }
 
 const QuestionareContainer = (props: QuestionaireItemContainerProps) => {

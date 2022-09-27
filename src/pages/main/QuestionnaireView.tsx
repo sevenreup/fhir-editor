@@ -62,6 +62,7 @@ export const QuestionaireArraysView = ({
               remove(index);
             }}
             register={register}
+            control={control}
           />
         ))}
         <Button onClick={onOpen}>Add Question</Button>
