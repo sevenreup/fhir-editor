@@ -1,13 +1,28 @@
-import { Box } from "@chakra-ui/react";
-import React, { FC, PropsWithChildren } from "react";
+import { Box, HTMLChakraProps } from "@chakra-ui/react";
+import clsx from "clsx";
+import { FC, PropsWithChildren } from "react";
 
-type Props = {
-  background?: string
-};
+interface Props extends HTMLChakraProps<"div"> {
+  type?: "outline" | "filled";
+}
 
-const Card: FC<PropsWithChildren<Props>> = ({ children }) => {
+const Card: FC<PropsWithChildren<Props>> = ({
+  children,
+  type = "outline",
+  className,
+  ...others
+}) => {
   return (
-    <Box width="full" borderWidth="1px" borderRadius="lg" overflow="hidden" p={6}>
+    <Box
+      width="full"
+      borderWidth={type == "filled" ? "none" : "1px"}
+      borderRadius="lg"
+      overflow="hidden"
+      background={type == "filled" ? "#f1f1f1" : "transparent"}
+      {...others}
+      className={clsx(className)}
+      p={6}
+    >
       {children}
     </Box>
   );

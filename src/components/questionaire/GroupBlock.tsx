@@ -7,7 +7,12 @@ import QuestionareContainer, {
 import BlockHeader from "../editable/BlockHeader";
 import Card from "../general/Card";
 
-const GroupBlock = (props: QuestionaireItemContainerProps) => {
+interface GroupProps {
+  isPage: boolean;
+  quest: QuestionaireItemContainerProps;
+}
+
+const GroupBlock = ({ isPage, quest: props }: GroupProps) => {
   const { question, ...others } = props;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { fields, remove, append } = useFieldArray({

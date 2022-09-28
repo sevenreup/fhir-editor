@@ -8,7 +8,7 @@ import {
   Tooltip,
   EditableInput,
 } from "@chakra-ui/react";
-import { CustomEditablePreview, EditableControls } from "./EditableControls";
+import { EditableControls } from "./EditableControls";
 interface Props extends InputProps {
   id?: string | undefined;
 }
@@ -21,16 +21,16 @@ const EditableTextBlock = forwardRef(
         isPreviewFocusable={true}
         selectAllOnFocus={false}
         placeholder="Enter Text"
+        width="full"
       >
-        <Tooltip label="Click to edit">
           <EditablePreview
             py={2}
             px={4}
+            width="full"
             _hover={{
               background: useColorModeValue("gray.100", "gray.700"),
             }}
           />
-        </Tooltip>
         <Input py={2} px={4} as={EditableInput} id={id} {...others} ref={ref} />
         <EditableControls />
       </Editable>

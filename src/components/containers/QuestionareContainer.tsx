@@ -6,7 +6,6 @@ import ChoiceBlock from "../questionaire/ChoiceBlock";
 import { DispalyBlock } from "../questionaire/DispalyBlock";
 import GroupBlock from "../questionaire/GroupBlock";
 import InputBlock from "../questionaire/InputBlock";
-import PageBlock from "../questionaire/PageBlock";
 
 export interface QuestionaireItemContainerProps
   extends IQuestionnaireItemProps {
@@ -14,14 +13,12 @@ export interface QuestionaireItemContainerProps
   register: UseFormRegister<Questionaire>;
   index: number;
   control: Control<Questionaire, any>;
-  path?: string 
+  path?: string;
 }
 
 const QuestionareContainer = (props: QuestionaireItemContainerProps) => {
   const { question } = props;
-  if (question.type == QuestionType.PAGE) {
-    return <PageBlock {...props} />;
-  } else if (question.type == QuestionType.BOOLEAN) {
+  if (question.type == QuestionType.BOOLEAN) {
     return <div>switch</div>;
   } else if (question.type == QuestionType.DISPLAY) {
     return <DispalyBlock {...props} />;
@@ -33,10 +30,14 @@ const QuestionareContainer = (props: QuestionaireItemContainerProps) => {
     return <InputBlock {...props} />;
   } else if (question.type == QuestionType.CHOICE) {
     return <ChoiceBlock {...props} />;
-  } else if (question.type == QuestionType.GROUP) {
-    return <GroupBlock {...props}/>
-  } 
-  else {
+  } else if (
+    question.type == QuestionType.GROUP ||
+    question.type == QuestionType.PAGE
+  ) {
+    return (
+      <GroupBlock isPage={question.type == QuestionType.PAGE} quest={props} />
+    );
+  } else {
     return <div style={{ color: "red" }}>nothing</div>;
   }
 };
