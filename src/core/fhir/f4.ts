@@ -1,27 +1,74 @@
+import { FhirCodeableConcept } from "./types";
+
 export interface FhirQuestionnaireResource {
-  version: string;
-  name: string;
-  title: string;
+  resourceType: string;
+  id: string;
+  language?: string;
+  extension?: FhirExtensionConcept[];
+  status?: string;
+  title?: string;
+  publisher?: string;
+  contact?: FhirContact[];
+  useContext?: FhirUseContext[];
   item: FhirQuestionItem[];
 }
 
-export interface FhirExtensionConcept {
-  "url": string,
-  "valueCodeableConcept": {
-    "coding": [
+export interface FhirContact {
+  name: string;
+}
+
+export interface FhirUseContext {
+  code: {
+    system: string;
+    code: string;
+  };
+  valueCodeableConcept: {
+    coding: [
       {
-        "system": string,
-        "code": string,
-        "display": string
+        system: string;
+        code: string;
+        display: string;
       }
-    ],
-    "text": string
-  }
+    ];
+  };
+}
+
+export interface FhirExtensionConcept {
+  url: string;
+  valueBoolean?: boolean;
+  valueCode?: object;
+  valueDate?: string;
+  valueDateTime?: string;
+  valueDecimal?: number;
+  valueId?: string;
+  valueInstant?: object;
+  valueInteger?: number;
+  valueMarkdown?: string;
+  valueOid?: object;
+  valuePositiveInt?: number;
+  valueString?: string;
+  valueAge?: string;
+  valueCodeableConcept?: FhirCodeableConcept;
+  valueCodeableReference?: object;
+  valueCoding?: object;
+  valueReference?: object;
+}
+
+export interface FhirAnswerOptions {
+  // C? Permitted answer
+  // value[x]: Answer value. One of these 6:
+  valueInteger?: number;
+  valueDate?: string; // date,
+  valueTime?: string; // time,
+  valueString?: string;
+  valueCoding?: object; // { Coding },
+  valueReference?: string; // { Reference(Any) },
+  initialSelected?: boolean; // Whether option is selected by default
 }
 
 export interface FhirQuestionItem {
   linkId: string;
-  extension?: FhirExtensionConcept[],
+  extension?: FhirExtensionConcept[];
   definition?: string; // ElementDefinition - details for the item
   // code : [{ Coding }],C? Corresponding concept for this item in a terminology
   prefix?: string; // E.g. 1(a), 2.5.3
@@ -58,19 +105,7 @@ export interface FhirQuestionItem {
   readOnly?: boolean; // C? Don't allow human editing
   maxLength?: number; // C? No more than this many characters
   //  answerValueSet : { canonical(ValueSet) }, C? Valueset containing permitted answers
-  answerOption?: [
-    {
-      // C? Permitted answer
-      // value[x]: Answer value. One of these 6:
-      valueInteger: number;
-      valueDate: string; // date,
-      valueTime: string; // time,
-      valueString: string;
-      valueCoding: object; // { Coding },
-      valueReference: string; // { Reference(Any) },
-      initialSelected: boolean; // Whether option is selected by default
-    }
-  ];
+  answerOption?: FhirAnswerOptions[];
   initial?: [
     {
       // C? Initial value(s) when item is first rendered

@@ -5,3 +5,7 @@ export function IsKeyInObjectNotNull(data: any, key: string) {
   }
   return false;
 }
+
+export function IsNotNullOrUndefined(data: any) {
+  return data !== null && data !== undefined;
+}

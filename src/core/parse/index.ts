@@ -1,6 +1,7 @@
 import { FhirQuestionItem, FhirQuestionnaireResource } from "../fhir/f4";
 import { IsFhirPage } from "../fhir/helpers";
 import {
+  ExtensionTypes,
   Questionaire,
   QuestionAnswerType,
   QuestionItem,
@@ -8,7 +9,7 @@ import {
 } from "../questionaire";
 import { QuestionType } from "../questionaire/enums";
 import { QuestionRules } from "../questionaire/rules";
-import { IsKeyInObjectNotNull } from "../utils/objects";
+import { IsKeyInObjectNotNull, IsNotNullOrUndefined } from "../utils/objects";
 
 export async function ParseFromString(data: string): Promise<Questionaire> {
   const json = JSON.parse(data) as FhirQuestionnaireResource;
@@ -20,11 +21,24 @@ export async function ParseFromString(data: string): Promise<Questionaire> {
     allItems.push(ToItem(item));
   }
 
-  return {
-    title: json.title,
-    items: allItems,
+  const quest: Questionaire = {
+    id: json.id,
+    title: json.title ?? "",
+    status: (json.status as any) ?? "draft",
     hasPages: false,
+    items: allItems,
+    settings: {
+      extension: json.extension,
+      useContext: json.useContext,
+    },
+    info: {
+      publisher: json.publisher,
+      contacts: json.contact,
+      language: json.language,
+    },
   };
+
+  return quest;
 }
 
 function ToItem(item: FhirQuestionItem): QuestionItem {
@@ -49,7 +63,7 @@ function ToItem(item: FhirQuestionItem): QuestionItem {
       }
     }
   }
-
+  // TODO!: Add Value Reference
   const answerOptions = item.answerOption;
   if (answerOptions !== null && answerOptions !== undefined) {
     quest.answerOption = answerOptions?.map((value) => {
@@ -72,6 +86,29 @@ function ToItem(item: FhirQuestionItem): QuestionItem {
       return {
         value: valueData,
         type: typeOfVar,
+      };
+    });
+  }
+
+  // TODO!: Add more types
+  const extensions = item.extension;
+  if (IsNotNullOrUndefined(extensions)) {
+    quest.extensions = extensions?.map((value) => {
+      let typeOfVar: ExtensionTypes;
+      let valueData: any;
+
+      if (IsKeyInObjectNotNull(value, "valueCodeableConcept")) {
+        typeOfVar = "CodeableConcept";
+        valueData = value.valueCodeableConcept;
+      } else {
+        typeOfVar = "string";
+        valueData = value.valueString;
+      }
+
+      return {
+        url: value.url,
+        type: typeOfVar,
+        value: valueData,
       };
     });
   }

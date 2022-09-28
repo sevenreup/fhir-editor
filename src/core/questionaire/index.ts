@@ -1,9 +1,21 @@
+import { FhirContact, FhirExtensionConcept, FhirUseContext } from "../fhir/f4";
+import { FhirCodeableConcept } from "../fhir/types";
 import { EnableBehavior, QuestionType } from "./enums";
 import { EnableRules, QuestionRules } from "./rules";
 
 const answerTypes = ["boolean", "string", "number", "Date", "coding"] as const;
-
 export type QuestionAnswerType = typeof answerTypes[number];
+
+const statusTypes = ["draft", "active", "retired", "unknown"] as const;
+export type QuestionaireStatusType = typeof statusTypes[number];
+
+export type ExtensionTypes = QuestionAnswerType | "CodeableConcept"
+
+export type ExtensionsValue = {
+  url: string;
+  type: ExtensionTypes;
+  value: FhirCodeableConcept | object;
+};
 
 export interface Questionvalue {
   value: any;
@@ -22,6 +34,7 @@ export interface QuestionItem {
   initial?: Questionvalue[];
   children?: QuestionItem[];
   isTranslated: boolean;
+  extensions?: ExtensionsValue[];
 }
 
 export interface QuestPage extends QuestionItem {
@@ -30,9 +43,20 @@ export interface QuestPage extends QuestionItem {
 }
 
 export interface Questionaire {
+  id: string;
   title: string;
+  status: QuestionaireStatusType;
   hasPages: boolean;
   items: QuestionItem[];
+  settings: {
+    extension?: FhirExtensionConcept[];
+    useContext?: FhirUseContext[];
+  };
+  info: {
+    publisher?: string;
+    contacts?: FhirContact[];
+    language?: string;
+  };
 }
 
 export interface ValueCoding {

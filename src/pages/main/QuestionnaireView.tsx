@@ -8,6 +8,7 @@ import {
   UseFormRegister,
 } from "react-hook-form";
 import QuestionareItemDialog from "./components/QuestionareItemDialog";
+import { encodeFhirQuestionare } from "../../core/encode";
 
 interface IQuestionnaireViewProps {
   questionaire: Questionaire;
@@ -25,6 +26,9 @@ export const QuestionnaireView = ({
 
   function onSubmit(values: any) {
     console.log(values);
+    const fhir = encodeFhirQuestionare(values);
+    console.log(fhir);
+    
   }
 
   return (
