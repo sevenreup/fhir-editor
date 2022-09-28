@@ -4,6 +4,7 @@ import { QuestionType } from "../../core/questionaire/enums";
 import { IQuestionnaireItemProps } from "../../types";
 import ChoiceBlock from "../questionaire/ChoiceBlock";
 import { DispalyBlock } from "../questionaire/DispalyBlock";
+import GroupBlock from "../questionaire/GroupBlock";
 import InputBlock from "../questionaire/InputBlock";
 import PageBlock from "../questionaire/PageBlock";
 
@@ -32,7 +33,10 @@ const QuestionareContainer = (props: QuestionaireItemContainerProps) => {
     return <InputBlock {...props} />;
   } else if (question.type == QuestionType.CHOICE) {
     return <ChoiceBlock {...props} />;
-  } else {
+  } else if (question.type == QuestionType.GROUP) {
+    return <GroupBlock {...props}/>
+  } 
+  else {
     return <div style={{ color: "red" }}>nothing</div>;
   }
 };
