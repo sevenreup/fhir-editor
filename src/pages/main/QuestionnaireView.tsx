@@ -9,6 +9,7 @@ import {
 } from "react-hook-form";
 import QuestionareItemDialog from "./components/QuestionareItemDialog";
 import { encodeFhirQuestionare } from "../../core/encode";
+import QuestionareToolbar from "../../views/questionaire/Toolbar";
 
 interface IQuestionnaireViewProps {
   questionaire: Questionaire;
@@ -32,12 +33,15 @@ export const QuestionnaireView = ({
   }
 
   return (
-    <form id="quest-create-form" onSubmit={handleSubmit(onSubmit)}>
+    <Box width="full">
+      <QuestionareToolbar />
+      <form id="quest-create-form" onSubmit={handleSubmit(onSubmit)}>
       <Box p={8}>
         <h1>{questionaire.title}</h1>
         <QuestionaireArraysView control={control} register={register} />
       </Box>
     </form>
+    </Box>
   );
 };
 
