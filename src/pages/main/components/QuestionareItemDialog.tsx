@@ -50,12 +50,13 @@ const QuestionareItemDialog = ({ isOpen, onClose, onSave }: Props) => {
   });
 
   const onSubmit = (data: any) => {
-    const quest = {
+    const quest: QuestionItem = {
       id: data.linkId,
       title: "",
       type: data.type,
       rules: {},
       isTranslated: false,
+      linkId: data.linkId,
     };
     onSave(quest);
   };
@@ -95,7 +96,9 @@ const QuestionareItemDialog = ({ isOpen, onClose, onSave }: Props) => {
                 {...register("type")}
               >
                 {Object.keys(QuestionType).map((value) => (
-                  <option key={value} value={(QuestionType as any)[value]}>{value}</option>
+                  <option key={value} value={(QuestionType as any)[value]}>
+                    {value}
+                  </option>
                 ))}
               </Select>
               <FormErrorMessage>

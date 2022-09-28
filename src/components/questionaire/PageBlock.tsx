@@ -13,7 +13,7 @@ const PageBlock = (props: QuestionaireItemContainerProps) => {
 
   const { fields, remove, append } = useFieldArray({
     control: others.control,
-    name: `items.${others.index}.children`,
+    name: `${others.path}.children`,
   } as never);
 
   return (
