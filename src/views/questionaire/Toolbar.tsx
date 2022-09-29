@@ -1,5 +1,4 @@
-import { Box, Flex } from "@chakra-ui/react";
-import React from "react";
+import { Flex } from "@chakra-ui/react";
 
 type Props = {};
 
@@ -11,17 +10,14 @@ const QuestionareToolbar = (props: Props) => {
         align="center"
         justify="space-between"
         wrap="wrap"
-        padding={6}
-        bg="teal.500"
+        bg="#e2e8f0"
+        textColor="black"
         color="white"
         width="full"
-        position="fixed"
-        height="54px"
-        zIndex={10}
+        height="full"
       >
-        kk
+        App Bar
       </Flex>
-      <div style={{height: 54}}/>
     </>
   );
 };

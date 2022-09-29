@@ -1,4 +1,4 @@
-import { atom, useAtom } from "jotai";
+import { atom } from "jotai";
 import { Questionaire } from "../core/questionaire";
 
 interface MainAtomState {
@@ -10,3 +10,5 @@ export const MainAtom = atom<MainAtomState>({
   isEditing: false,
   questionaire: null,
 });
+
+export const PageCountAtom = atom(0);

@@ -5,7 +5,6 @@ import {
   Questionaire,
   QuestionAnswerType,
   QuestionItem,
-  QuestPage,
 } from "../questionaire";
 import { QuestionType } from "../questionaire/enums";
 import { QuestionRules } from "../questionaire/rules";
@@ -15,17 +14,22 @@ export async function ParseFromString(data: string): Promise<Questionaire> {
   const json = JSON.parse(data) as FhirQuestionnaireResource;
   const items = json.item;
   const allItems: QuestionItem[] = [];
+  let pages = 0;
 
   for (let index = 0; index < items.length; index++) {
     const item = items[index];
-    allItems.push(ToItem(item));
+    allItems.push(
+      ToItem(item, () => {
+        pages = pages + 1;
+      })
+    );
   }
 
   const quest: Questionaire = {
     id: json.id,
     title: json.title ?? "",
     status: (json.status as any) ?? "draft",
-    hasPages: false,
+    pages: pages,
     items: allItems,
     settings: {
       extension: json.extension,
@@ -41,7 +45,7 @@ export async function ParseFromString(data: string): Promise<Questionaire> {
   return quest;
 }
 
-function ToItem(item: FhirQuestionItem): QuestionItem {
+function ToItem(item: FhirQuestionItem, hasPages: () => void): QuestionItem {
   const rules: QuestionRules = {};
   const quest: QuestionItem = {
     id: item.linkId,
@@ -58,6 +62,7 @@ function ToItem(item: FhirQuestionItem): QuestionItem {
         const ext = item.extension[index];
         if (IsFhirPage(ext)) {
           quest.type = QuestionType.PAGE;
+          hasPages();
         } else {
         }
       }
@@ -113,7 +118,11 @@ function ToItem(item: FhirQuestionItem): QuestionItem {
     });
   }
 
-  quest.children = item.item?.map((inner) => ToItem(inner));
+  quest.children = item.item?.map((inner) =>
+    ToItem(inner, () => {
+      hasPages();
+    })
+  );
   return quest;
 }
 

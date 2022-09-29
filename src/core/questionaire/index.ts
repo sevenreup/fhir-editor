@@ -46,7 +46,7 @@ export interface Questionaire {
   id: string;
   title: string;
   status: QuestionaireStatusType;
-  hasPages: boolean;
+  pages: number;
   items: QuestionItem[];
   settings: {
     extension?: FhirExtensionConcept[];

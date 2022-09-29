@@ -3,7 +3,7 @@ import { ParseFromString } from "../../core/parse";
 import { Questionaire } from "../../core/questionaire";
 
 type Props = {
-  setQuestionaire: (quest: Questionaire) => void;
+  setQuestionaire: (quest: Questionaire, pages: number) => void;
 };
 
 const PickerView = ({ setQuestionaire }: Props) => {
@@ -17,7 +17,7 @@ const PickerView = ({ setQuestionaire }: Props) => {
 
   const parseQuest = async (raw: string) => {
     const data = await ParseFromString(raw);
-    setQuestionaire(data);
+    setQuestionaire(data, data.pages);
   };
   return (
     <div>

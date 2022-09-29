@@ -1,26 +1,28 @@
 import { Box } from "@chakra-ui/react";
 import { useAtom } from "jotai";
-import { MainAtom } from "../../state";
+import { MainAtom, PageCountAtom } from "../../state";
 import PickerView from "./PickerView";
 import { QuestionnaireView } from "./QuestionnaireView";
 
 export default function MainPage() {
-  const [state, setState] = useAtom(MainAtom);
+  const [mainState, setMainState] = useAtom(MainAtom);
+  const [_, setPageCount] = useAtom(PageCountAtom);
 
   return (
     <Box>
-      {!state.isEditing && (
+      {!mainState.isEditing && (
         <PickerView
-          setQuestionaire={(quest) => {
-            setState({
+          setQuestionaire={(quest, pages) => {
+            setMainState({
               isEditing: true,
               questionaire: quest,
             });
+            setPageCount(pages);
           }}
         />
       )}
-      {state.questionaire && (
-        <QuestionnaireView questionaire={state.questionaire} />
+      {mainState.questionaire && (
+        <QuestionnaireView questionaire={mainState.questionaire} />
       )}
     </Box>
   );
