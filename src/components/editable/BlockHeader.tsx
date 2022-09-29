@@ -1,6 +1,16 @@
 import { DeleteIcon, SettingsIcon } from "@chakra-ui/icons";
-import { Badge, Box, Flex, IconButton } from "@chakra-ui/react";
+import {
+  Badge,
+  Box,
+  Flex,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+} from "@chakra-ui/react";
 import { QuestionaireItemContainerProps } from "../containers/QuestionareContainer";
+import { AiOutlineMore as MoreIcon } from "react-icons/ai";
 
 const BlockHeader = ({
   question: { linkId, type },
@@ -16,15 +26,19 @@ const BlockHeader = ({
           </Badge>
         </Box>
       </Flex>
-
-      <Flex gap={2}>
-        <IconButton icon={<SettingsIcon />} aria-label={""} />
-        <IconButton
-          icon={<DeleteIcon />}
-          aria-label={""}
-          onClick={() => onDeleteClicked()}
+      <Menu>
+        <MenuButton
+          as={IconButton}
+          aria-label="Options"
+          icon={<MoreIcon />}
+          variant="outline"
         />
-      </Flex>
+        <MenuList>
+          <MenuItem icon={<DeleteIcon />} onClick={onDeleteClicked}>
+            Delete
+          </MenuItem>
+        </MenuList>
+      </Menu>
     </Flex>
   );
 };

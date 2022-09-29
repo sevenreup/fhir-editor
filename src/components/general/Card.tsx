@@ -18,7 +18,7 @@ const Card: FC<PropsWithChildren<Props>> = ({
       borderWidth={type == "filled" ? "none" : "1px"}
       borderRadius="lg"
       overflow="hidden"
-      background={type == "filled" ? "#f1f1f1" : "transparent"}
+      background={type == "filled" ? "#f6f4f4" : "transparent"}
       {...others}
       className={clsx(className)}
       p={6}

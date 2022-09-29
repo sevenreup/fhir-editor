@@ -1,15 +1,15 @@
+import Itemcard from "../card/Itemcard";
 import { QuestionaireItemContainerProps } from "../containers/QuestionareContainer";
 import BlockHeader from "../editable/BlockHeader";
 import EditableTextBlock from "../editable/EditableTextBlock";
-import Card from "../general/Card";
 
 const InputBlock = (props: QuestionaireItemContainerProps) => {
   const { question } = props;
   return (
-    <Card>
+    <Itemcard>
       <BlockHeader {...props} />
       <EditableTextBlock defaultValue={question.title} />
-    </Card>
+    </Itemcard>
   );
 };
 

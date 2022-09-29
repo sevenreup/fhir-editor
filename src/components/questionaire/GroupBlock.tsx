@@ -22,7 +22,7 @@ const GroupBlock = ({ isPage, quest: props }: GroupProps) => {
 
   return (
     <>
-      <Card>
+      <Card type={isPage ? "filled" : "outline"}>
         <BlockHeader {...props} />
         <h3>{question.title}</h3>
         <VStack>
@@ -40,15 +40,15 @@ const GroupBlock = ({ isPage, quest: props }: GroupProps) => {
             />
           ))}
         </VStack>
-        <div>
-          <Button
-            onClick={() => {
-              onOpen();
-            }}
-          >
-            Add Question
-          </Button>
-        </div>
+        <Button
+          mt={2}
+          width="full"
+          onClick={() => {
+            onOpen();
+          }}
+        >
+          Add Question
+        </Button>
       </Card>
       <QuestionareItemDialog
         isOpen={isOpen}
