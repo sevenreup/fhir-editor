@@ -2,6 +2,7 @@ import { Control, UseFormRegister } from "react-hook-form";
 import { Questionaire } from "../../core/questionaire";
 import { QuestionType } from "../../core/questionaire/enums";
 import { IQuestionnaireItemProps } from "../../types";
+import BooleanBlock from "../questionaire/BooleanBlock";
 import ChoiceBlock from "../questionaire/ChoiceBlock";
 import { DispalyBlock } from "../questionaire/DispalyBlock";
 import GroupBlock from "../questionaire/GroupBlock";
@@ -19,7 +20,7 @@ export interface QuestionaireItemContainerProps
 const QuestionareContainer = (props: QuestionaireItemContainerProps) => {
   const { question } = props;
   if (question.type == QuestionType.BOOLEAN) {
-    return <div>switch</div>;
+    return <BooleanBlock {...props}/>;
   } else if (question.type == QuestionType.DISPLAY) {
     return <DispalyBlock {...props} />;
   } else if (

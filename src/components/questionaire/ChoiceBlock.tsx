@@ -11,7 +11,11 @@ const ChoiceBlock = (props: QuestionaireItemContainerProps) => {
   return (
     <Itemcard>
       <BlockHeader {...props} />
-      <EditableTextBlock defaultValue={question.title} />
+      <EditableTextBlock
+        defaultValue={question.title}
+        // @ts-ignore
+        {...props.register(`${props.path}.title`)}
+      />
       {!question.answerOption && <div>No answers provided</div>}
 
       {question.answerOption && (
@@ -21,7 +25,7 @@ const ChoiceBlock = (props: QuestionaireItemContainerProps) => {
           </Text>
           <VStack>
             {question.answerOption?.map((option, index) => (
-              <QuestionAnswerOption value={option} key={index}/>
+              <QuestionAnswerOption value={option} key={index} />
             ))}
             <Button>Add Options</Button>
           </VStack>

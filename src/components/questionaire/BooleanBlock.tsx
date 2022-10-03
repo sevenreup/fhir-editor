@@ -3,7 +3,7 @@ import { QuestionaireItemContainerProps } from "../containers/QuestionareContain
 import BlockHeader from "../editable/BlockHeader";
 import EditableTextBlock from "../editable/EditableTextBlock";
 
-const InputBlock = (props: QuestionaireItemContainerProps) => {
+const BooleanBlock = (props: QuestionaireItemContainerProps) => {
   return (
     <Itemcard onClick={() => {}}>
       <BlockHeader {...props} />
@@ -16,4 +16,4 @@ const InputBlock = (props: QuestionaireItemContainerProps) => {
   );
 };
 
-export default InputBlock;
+export default BooleanBlock;

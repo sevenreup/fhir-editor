@@ -4,17 +4,13 @@ import BlockHeader from "../editable/BlockHeader";
 import EditableTextBlock from "../editable/EditableTextBlock";
 
 export const DispalyBlock = (props: QuestionaireItemContainerProps) => {
-  const { question, index, register, path } = props;
-  const elPath = `${path}.title`;
-
   return (
     <Itemcard onClick={() => {}}>
       <BlockHeader {...props} />
       <EditableTextBlock
-        id={elPath}
-        defaultValue={question.title}
+        defaultValue={props.question.title}
         // @ts-ignore
-        {...register(elPath)}
+        {...props.register(`${props.path}.title`)}
       />
     </Itemcard>
   );
