@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, Tab, TabList } from "@chakra-ui/react";
 
 type Props = {};
 
@@ -10,13 +10,13 @@ const QuestionareToolbar = (props: Props) => {
         align="center"
         justify="space-between"
         wrap="wrap"
-        bg="#e2e8f0"
-        textColor="black"
-        color="white"
         width="full"
         height="full"
       >
-        App Bar
+        <TabList>
+          <Tab>Questionnaire Items</Tab>
+          <Tab>Questionnaire</Tab>
+        </TabList>
       </Flex>
     </>
   );
