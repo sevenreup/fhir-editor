@@ -23,6 +23,7 @@ import QuestionareToolbar from "../../views/questionaire/Toolbar";
 import { useAtom } from "jotai";
 import { PageCountAtom } from "../../state";
 import { QuestionType } from "../../core/questionaire/enums";
+import QuestionaireSidebar from "./components/QuestionaireSidebar";
 
 interface IQuestionnaireViewProps {
   questionaire: Questionaire;
@@ -50,9 +51,7 @@ export const QuestionnaireView = ({
     <>
       <form id="quest-create-form" onSubmit={handleSubmit(onSubmit)}>
         <Flex>
-          <Box width={500} background="white">
-            <p>Side Bar</p>
-          </Box>
+          <QuestionaireSidebar />
           <Tabs width="full">
             <Grid
               templateAreas={`"header"
