@@ -8,7 +8,7 @@ export const DispalyBlock = (props: QuestionaireItemContainerProps) => {
   const elPath = `${path}.title`;
 
   return (
-    <Itemcard>
+    <Itemcard onClick={() => {}}>
       <BlockHeader {...props} />
       <EditableTextBlock
         id={elPath}

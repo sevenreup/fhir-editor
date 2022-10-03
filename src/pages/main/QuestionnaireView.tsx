@@ -88,7 +88,7 @@ export const QuestionaireArraysView = ({
   function onSubmit(values: any) {
     console.log(values);
     const fhir = encodeFhirQuestionare(values);
-    console.log(fhir);
+    console.log(JSON.stringify(fhir));
   }
 
   return (

@@ -1,4 +1,6 @@
 import { Button, useDisclosure, VStack } from "@chakra-ui/react";
+import { Resizable } from "re-resizable";
+import { FC, PropsWithChildren, ReactNode } from "react";
 import { useFieldArray } from "react-hook-form";
 import QuestionareItemDialog from "../../pages/main/components/QuestionareItemDialog";
 import QuestionareContainer, {
@@ -21,7 +23,7 @@ const GroupBlock = ({ isPage, quest: props }: GroupProps) => {
   } as never);
 
   return (
-    <>
+    <GroupContainer isPage={isPage}>
       <Card type={isPage ? "filled" : "outline"}>
         <BlockHeader {...props} />
         <h3>{question.title}</h3>
@@ -59,8 +61,40 @@ const GroupBlock = ({ isPage, quest: props }: GroupProps) => {
           append(quest);
         }}
       />
-    </>
+    </GroupContainer>
   );
+};
+
+const GroupContainer: FC<
+  PropsWithChildren<{
+    isPage: boolean;
+  }>
+> = ({ isPage, children }) => {
+  if (isPage) {
+    return (
+      <Resizable
+        defaultSize={{
+          width: 320,
+          height: "100%",
+        }}
+        minWidth={320}
+        enable={{
+          left: true,
+          right: true,
+          top: false,
+          bottom: false,
+          topRight: false,
+          bottomRight: false,
+          bottomLeft: false,
+          topLeft: false,
+        }}
+      >
+        {children}
+      </Resizable>
+    );
+  } else {
+    return <>{children}</>;
+  }
 };
 
 export default GroupBlock;

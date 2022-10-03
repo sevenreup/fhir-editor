@@ -20,7 +20,7 @@ export const encodeFhirQuestionare = (questionaire: Questionaire) => {
     useContext: questionaire.settings.useContext,
     item: questionaire.items.map((child) => ToItem(child)),
   };
-
+  JSON.stringify(resource);
   return resource;
 };
 

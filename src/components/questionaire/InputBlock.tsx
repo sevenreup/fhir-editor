@@ -6,7 +6,7 @@ import EditableTextBlock from "../editable/EditableTextBlock";
 const InputBlock = (props: QuestionaireItemContainerProps) => {
   const { question } = props;
   return (
-    <Itemcard>
+    <Itemcard onClick={() => {}}>
       <BlockHeader {...props} />
       <EditableTextBlock defaultValue={question.title} />
     </Itemcard>
