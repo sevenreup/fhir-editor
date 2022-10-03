@@ -13,6 +13,7 @@ export const DispalyBlock = (props: QuestionaireItemContainerProps) => {
       <EditableTextBlock
         id={elPath}
         defaultValue={question.title}
+        // @ts-ignore
         {...register(elPath)}
       />
     </Itemcard>

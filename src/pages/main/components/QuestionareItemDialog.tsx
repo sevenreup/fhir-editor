@@ -76,7 +76,7 @@ const QuestionareItemDialog = ({ isOpen, onClose, onSave }: Props) => {
               handleSubmit(onSubmit)(e);
             }}
           >
-            <FormControl isInvalid={errors.linkId}>
+            <FormControl isInvalid={!(errors.linkId !== undefined)}>
               <FormLabel htmlFor="linkId">Link Id</FormLabel>
               <Input
                 type="text"

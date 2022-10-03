@@ -16,12 +16,25 @@ export function EditableControls() {
 
   return isEditing ? (
     <ButtonGroup justifyContent="start" size="sm" mt={1}>
-      <IconButton icon={<CheckIcon />} {...getSubmitButtonProps()} />
-      <IconButton icon={<CloseIcon />} {...getCancelButtonProps()} />
+      <IconButton
+        aria-label={""}
+        icon={<CheckIcon />}
+        {...getSubmitButtonProps()}
+      />
+      <IconButton
+        aria-label={""}
+        icon={<CloseIcon />}
+        {...getCancelButtonProps()}
+      />
     </ButtonGroup>
   ) : (
     <Flex justifyContent="start" mt={1}>
-      <IconButton size="sm" icon={<EditIcon />} {...getEditButtonProps()} />
+      <IconButton
+        aria-label={""}
+        size="sm"
+        icon={<EditIcon />}
+        {...getEditButtonProps()}
+      />
     </Flex>
   );
 }
