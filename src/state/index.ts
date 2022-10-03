@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { Questionaire } from "../core/questionaire";
+import { Questionaire, QuestionItem } from "../core/questionaire";
 
 interface MainAtomState {
   isEditing: boolean;
@@ -10,5 +10,7 @@ export const MainAtom = atom<MainAtomState>({
   isEditing: false,
   questionaire: null,
 });
+
+export const SelectedQuestionItemAtom = atom<QuestionItem | null>(null);
 
 export const PageCountAtom = atom(0);

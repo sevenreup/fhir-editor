@@ -1,11 +1,20 @@
 import { Box } from "@chakra-ui/react";
+import { useAtom } from "jotai";
 import { FC, PropsWithChildren } from "react";
+import { QuestionItem } from "../../core/questionaire";
+import { SelectedQuestionItemAtom } from "../../state";
 
 type Props = {
-  onClick?: () => void;
+  question: QuestionItem;
 };
 
-const Itemcard: FC<PropsWithChildren<Props>> = ({ children, onClick }) => {
+const Itemcard: FC<PropsWithChildren<Props>> = ({ children, question }) => {
+  const [selected, setQuestionItem] = useAtom(SelectedQuestionItemAtom);
+
+  let click = () => {
+    setQuestionItem(question);
+  };
+
   return (
     <Box
       width="full"
@@ -19,10 +28,20 @@ const Itemcard: FC<PropsWithChildren<Props>> = ({ children, onClick }) => {
       p={6}
       cursor="pointer"
       borderWidth="1px"
-      borderColor="transparent"
+      borderColor={
+        selected?.id === question.id ? "ActiveBorder" : "transparent"
+      }
       borderRadius="lg"
       overflow="hidden"
-      onClick={onClick}
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        click();
+      }}
+      onMouseOver={(e) => {
+        e.preventDefault()
+        e.stopPropagation()
+      }}
     >
       {children}
     </Box>
