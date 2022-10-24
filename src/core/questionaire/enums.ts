@@ -13,8 +13,8 @@ export enum QuestionType {
 }
 
 export enum EnableBehavior {
-  ALL,
-  ANY,
+  ALL = "all",
+  ANY = "any",
 }
 
 export enum QuestionExtension {

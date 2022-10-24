@@ -1,3 +1,4 @@
+import { EnableOperators } from "../questionaire/rules";
 import { FhirCodeableConcept } from "./types";
 
 export interface FhirQuestionnaireResource {
@@ -85,7 +86,7 @@ export interface FhirQuestionItem {
     {
       // Only allow data when
       question: string; // R!  Question that determines whether item is enabled
-      operator: "exists" | "=" | "!=" | ">" | ">=" | "<" | "<=";
+      operator: EnableOperators;
       // answer[x]: Value for question comparison based on operator. One of these 10:
       answerBoolean: boolean;
       answerDecimal: string; // decimal;

@@ -2,12 +2,16 @@ import { Box, HTMLChakraProps } from "@chakra-ui/react";
 import clsx from "clsx";
 import { useAtom } from "jotai";
 import { FC, PropsWithChildren } from "react";
-import { QuestionItem } from "../../core/questionaire";
+import { Control, UseFormRegister } from "react-hook-form";
+import { Questionaire, QuestionItem } from "../../core/questionaire";
 import { SelectedQuestionItemAtom } from "../../state";
 
 interface Props extends HTMLChakraProps<"div"> {
   type?: "outline" | "filled";
   question: QuestionItem;
+  register: UseFormRegister<Questionaire>;
+  path?: string;
+  control: Control<Questionaire, any>;
 }
 
 const Card: FC<PropsWithChildren<Props>> = ({
@@ -15,12 +19,15 @@ const Card: FC<PropsWithChildren<Props>> = ({
   type = "outline",
   className,
   question,
+  register,
+  path,
+  control,
   ...others
 }) => {
   const [selected, setQuestionItem] = useAtom(SelectedQuestionItemAtom);
 
   let click = () => {
-    setQuestionItem(question);
+    setQuestionItem({ question, register, path, control });
   };
 
   return (
@@ -36,7 +43,7 @@ const Card: FC<PropsWithChildren<Props>> = ({
       overflow="hidden"
       background={type == "filled" ? "#f6f4f4" : "transparent"}
       borderColor={
-        selected?.id === question.id ? "ActiveBorder" : "transparent"
+        selected?.question.id === question.id ? "ActiveBorder" : "transparent"
       }
       {...others}
       className={clsx(className)}

@@ -9,7 +9,7 @@ import EditableTextBlock from "../editable/EditableTextBlock";
 const ChoiceBlock = (props: QuestionaireItemContainerProps) => {
   const { question } = props;
   return (
-    <Itemcard question={props.question}>
+    <Itemcard question={props.question}  register={props.register} path={props.path} control={props.control}>
       <BlockHeader {...props} />
       <EditableTextBlock
         defaultValue={question.title}

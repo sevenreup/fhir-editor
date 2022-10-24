@@ -1,4 +1,5 @@
 import { atom } from "jotai";
+import { Control, UseFormRegister } from "react-hook-form";
 import { Questionaire, QuestionItem } from "../core/questionaire";
 
 interface MainAtomState {
@@ -11,6 +12,13 @@ export const MainAtom = atom<MainAtomState>({
   questionaire: null,
 });
 
-export const SelectedQuestionItemAtom = atom<QuestionItem | null>(null);
+interface SelectedQuestionProps {
+  register: UseFormRegister<Questionaire>;
+  control: Control<Questionaire, any>;
+  question: QuestionItem;
+  path?: string;
+}
+
+export const SelectedQuestionItemAtom = atom<SelectedQuestionProps | null>(null);
 
 export const PageCountAtom = atom(0);

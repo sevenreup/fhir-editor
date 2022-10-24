@@ -3,8 +3,8 @@ import { FhirCodeableConcept } from "../fhir/types";
 import { EnableBehavior, QuestionType } from "./enums";
 import { EnableRules, QuestionRules } from "./rules";
 
-const answerTypes = ["boolean", "string", "number", "Date", "coding"] as const;
-export type QuestionAnswerType = typeof answerTypes[number];
+export const QuestionAnswerTypesValues = ["boolean", "string", "number", "Date", "coding"] as const;
+export type QuestionAnswerType = typeof QuestionAnswerTypesValues[number];
 
 const statusTypes = ["draft", "active", "retired", "unknown"] as const;
 export type QuestionaireStatusType = typeof statusTypes[number];

@@ -6,8 +6,8 @@ import {
   QuestionAnswerType,
   QuestionItem,
 } from "../questionaire";
-import { QuestionType } from "../questionaire/enums";
-import { QuestionRules } from "../questionaire/rules";
+import { EnableBehavior, QuestionType } from "../questionaire/enums";
+import { EnableRules, QuestionRules } from "../questionaire/rules";
 import { IsKeyInObjectNotNull, IsNotNullOrUndefined } from "../utils/objects";
 
 export async function ParseFromString(data: string): Promise<Questionaire> {
@@ -115,6 +115,38 @@ function ToItem(item: FhirQuestionItem, hasPages: () => void): QuestionItem {
         type: typeOfVar,
         value: valueData,
       };
+    });
+  }
+
+  if (item.enableBehavior) {
+    const bev = item.enableBehavior;
+    quest.enableBehavior =
+      bev == "all" ? EnableBehavior.ALL : EnableBehavior.ANY;
+  }
+
+  if (item.enableWhen) {
+    quest.enableWhen = item.enableWhen.map((rule) => {
+      let typeOfVar: QuestionAnswerType;
+      let valueData: any;
+
+      if (IsKeyInObjectNotNull(rule, "answerString")) {
+        typeOfVar = "string";
+      } else if (IsKeyInObjectNotNull(rule, "answerCoding")) {
+        typeOfVar = "coding";
+        valueData = rule.answerCoding;
+      } else {
+        typeOfVar = "string";
+        valueData = rule.answerBoolean;
+      }
+
+      const newRule: EnableRules = {
+        question: rule.question,
+        operator: rule.operator,
+        type: typeOfVar,
+        answer: valueData,
+      };
+
+      return newRule;
     });
   }
 

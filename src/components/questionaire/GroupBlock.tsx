@@ -24,7 +24,7 @@ const GroupBlock = ({ isPage, quest: props }: GroupProps) => {
 
   return (
     <GroupContainer isPage={isPage}>
-      <Card type={isPage ? "filled" : "outline"} question={question}>
+      <Card type={isPage ? "filled" : "outline"} question={question}  register={props.register} path={props.path} control={props.control}>
         <BlockHeader {...props} />
         <h3>{question.title}</h3>
         <VStack>

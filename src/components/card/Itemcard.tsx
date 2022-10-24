@@ -1,18 +1,28 @@
 import { Box } from "@chakra-ui/react";
 import { useAtom } from "jotai";
 import { FC, PropsWithChildren } from "react";
-import { QuestionItem } from "../../core/questionaire";
+import { Control, UseFormRegister } from "react-hook-form";
+import { Questionaire, QuestionItem } from "../../core/questionaire";
 import { SelectedQuestionItemAtom } from "../../state";
 
 type Props = {
   question: QuestionItem;
+  register: UseFormRegister<Questionaire>;
+  path?: string;
+  control: Control<Questionaire, any>;
 };
 
-const Itemcard: FC<PropsWithChildren<Props>> = ({ children, question }) => {
+const Itemcard: FC<PropsWithChildren<Props>> = ({
+  children,
+  question,
+  register,
+  control,
+  path,
+}) => {
   const [selected, setQuestionItem] = useAtom(SelectedQuestionItemAtom);
 
   let click = () => {
-    setQuestionItem(question);
+    setQuestionItem({ question, register, path, control });
   };
 
   return (
@@ -29,7 +39,7 @@ const Itemcard: FC<PropsWithChildren<Props>> = ({ children, question }) => {
       cursor="pointer"
       borderWidth="1px"
       borderColor={
-        selected?.id === question.id ? "ActiveBorder" : "transparent"
+        selected?.question.id === question.id ? "ActiveBorder" : "transparent"
       }
       borderRadius="lg"
       overflow="hidden"
@@ -39,8 +49,8 @@ const Itemcard: FC<PropsWithChildren<Props>> = ({ children, question }) => {
         click();
       }}
       onMouseOver={(e) => {
-        e.preventDefault()
-        e.stopPropagation()
+        e.preventDefault();
+        e.stopPropagation();
       }}
     >
       {children}

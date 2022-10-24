@@ -9,7 +9,7 @@ export default function MainPage() {
   const [_, setPageCount] = useAtom(PageCountAtom);
 
   return (
-    <Box>
+    <Box overflow="hidden">
       {!mainState.isEditing && (
         <PickerView
           setQuestionaire={(quest, pages) => {
