@@ -2,9 +2,9 @@ import { Box, Heading, Stack, VStack } from "@chakra-ui/react";
 import { useAtom } from "jotai";
 import { Resizable } from "re-resizable";
 import { Control, UseFormRegister } from "react-hook-form";
-import EnableWhenControls from "../../../components/editable/EnableWhenControls";
-import { Questionaire, QuestionItem } from "../../../core/questionaire";
-import { SelectedQuestionItemAtom } from "../../../state";
+import EnableWhenControls from "../../components/editable/EnableWhenControls";
+import { Questionaire, QuestionItem } from "../../core/questionaire";
+import { SelectedQuestionItemAtom } from "../../state";
 
 type Props = {};
 
